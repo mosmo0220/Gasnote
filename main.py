@@ -1,3 +1,4 @@
+"""Fastapi imports"""
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -9,4 +10,5 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 async def index(request: Request):
+    """Gives back index page"""
     return templates.TemplateResponse("index.html", {"request": request})
