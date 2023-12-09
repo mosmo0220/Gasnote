@@ -1,0 +1,27 @@
+@font-face {
+    font-family: "Open Sans-Regular";
+    src: url('/static/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: "Open Sans-Bold";
+    src: url('/static/fonts/OpenSans-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: "Open Sans-MediumItalic";
+    src:  url('/static/fonts/OpenSans-MediumItalic.ttf') format('truetype');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans-Regular';
+}
+
+.font-bold {
+    font-family: 'Open Sans-Bold' !important;
+}
+.font-italic {
+    font-family: 'Open Sans-MediumItalic' !important;
+}
