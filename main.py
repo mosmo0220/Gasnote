@@ -1,19 +1,24 @@
-"""Main module"""
-from fastapi import FastAPI, Request
+"""Uvicorn main module"""
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 
 from models.orm_models import Base
+from models.utilities.OAuth.imports.auth01_router import Auth01Router
 from database import engine
+
+from routes.auth.auth_router import AuthRoutes
+from routes.website.website_router import WebsiteRoutes
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+app.include_router(WebsiteRoutes)
+app.include_router(Auth01Router)
+app.include_router(AuthRoutes)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-templates = Jinja2Templates(directory="templates")
-
 @app.get("/")
-async def index(request: Request):
-    """Returns Jinja2 page"""
-    return templates.TemplateResponse("index.html", {"request": request})
+async def redirect():
+    """Redirects to app route"""
+    return RedirectResponse("/app/", status_code=303)
