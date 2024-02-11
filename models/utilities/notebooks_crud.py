@@ -5,17 +5,24 @@ from sqlalchemy.orm import Session
 import models.orm_models as models
 import models.pydantic_models as schemas
 
-def get_notebooks(db: Session, user_id: int):
+def get_notebooks(db: Session, user_id: int) -> schemas.Notebook:
     """Request to db for all user notebooks"""
-    return db.query(models.Notebook).filter(models.Notebook.owner_id == user_id).all()
+    result = db.query(models.Notebook).filter(models.Notebook.owner_id == user_id).all()
+    return_notebook = schemas.Notebook(title=result.title, content=result.content,
+                                      id=result.id, owner_id=result.owner_id)
+    return return_notebook
 
-def create_user_notebook(db: Session, item: schemas.NotebookCreate, user_id: int):
+def create_user_notebook(db: Session, item: schemas.NotebookCreate,
+                        user_id: int) -> schemas.Notebook:
     """Request to db that add new notebook"""
-    db_item = models.Notebook(**item.dict(), owner_id=user_id)
-    db.add(db_item)
+    result = models.Notebook(**item.dict(), owner_id=user_id)
+    db.add(result)
     db.commit()
-    db.refresh(db_item)
-    return db_item
+    db.refresh(result)
+
+    return_notebook = schemas.Notebook(title=result.title, content=None,
+                                      id=result.id, owner_id=result.owner_id)
+    return return_notebook
 
 def update_user_notebook(db: Session, notebook_id: int,
                          new_title: str = None, new_content: JSON = None):

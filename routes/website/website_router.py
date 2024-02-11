@@ -21,3 +21,5 @@ async def tryauth(user: UserDependency, request: Request):
     """Returns Jinja2 page, that checks auth system"""
     return templates.TemplateResponse("tryauth.html",
                                      {"request": request, "email": user.get("username")})
+
+# Add /app/login
