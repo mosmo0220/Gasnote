@@ -1,8 +1,9 @@
 """API Router for website routes"""
 from fastapi import APIRouter, Request
+from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 
-from models.utilities.OAuth.imports.user_dependency import UserDependency
+from imports.user_dependency import UserDependency
 
 WebsiteRoutes = APIRouter(
     prefix='/app',
@@ -16,10 +17,8 @@ async def index(request: Request):
     """Returns Jinja2 page, that is main page"""
     return templates.TemplateResponse("index.html", {"request": request})
 
-@WebsiteRoutes.get("/tryauth")
-async def tryauth(user: UserDependency, request: Request):
+@WebsiteRoutes.get("/status")
+# pylint: disable=W0613
+async def validate_credentials(user: UserDependency):
     """Returns Jinja2 page, that checks auth system"""
-    return templates.TemplateResponse("tryauth.html",
-                                     {"request": request, "email": user.get("username")})
-
-# Add /app/login
+    return RedirectResponse("/app", status_code=200)

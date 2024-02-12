@@ -11,9 +11,9 @@ from pydantic import BaseModel
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 
-import models.pydantic_models as schemas
-from models.utilities.users_crud import get_user_by_email
-from models.utilities.token_refresh_crud import get_token_refresh_rate, \
+import models.models as schemas
+from utilities.users_operations import get_user_by_email
+from utilities.token_refresh_operations import get_token_refresh_rate, \
     create_token_count, update_token_count
 from database import get_db
 from load_env import SECRET_KEY, ALG
@@ -90,9 +90,9 @@ async def refresh_token(user: Annotated[dict, Depends(get_current_user)],
     """Function allows to refresh user token"""
     # Add time checking for DDOS attack
     token_count = get_token_refresh_rate(db, user.get("id"))
-    if token_count.refresh_count >= 24:
+    if token_count.refresh_count >= 24 or token_count.refresh_count == 0:
         update_token_count(db, user.get("id"), 0)
-        return RedirectResponse("/app/login", status_code=303)
+        return RedirectResponse("/app/login", status_code=301)
 
     counter = token_count.refresh_count
     update_token_count(db, user.get("id"), counter + 1)

@@ -2,7 +2,7 @@
 from sqlalchemy.orm import Session
 
 import models.orm_models as models
-import models.pydantic_models as schemas
+import models.models as schemas
 
 def get_token_refresh_rate(db: Session, user_id: int) -> schemas.RefreshToken:
     """Request to db to access token refresh rate"""
