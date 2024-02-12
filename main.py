@@ -4,8 +4,8 @@ from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from models.orm_models import Base
-from utilities.OAuth.imports.auth01_router import Auth01Router
-from utilities.OAuth.imports.user_dependency import UserDependency
+from models.utilities.OAuth.imports.auth01_router import Auth01Router
+from models.utilities.OAuth.imports.user_dependency import UserDependency
 from database import engine
 
 from routes.auth.auth_router import AuthRoutes
@@ -21,8 +21,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 # pylint: disable=W0613
-async def redirect():
+async def redirect(user: UserDependency):
     """Redirects to app route"""
-    user = UserDependency()
-    print(user)
     return RedirectResponse("/app/", status_code=303)
