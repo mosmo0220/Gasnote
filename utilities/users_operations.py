@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 
 import models.orm_models as models
-import models.models as schemas
+import models.pd_models as schemas
 
 crypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 

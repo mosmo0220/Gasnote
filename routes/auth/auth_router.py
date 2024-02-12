@@ -6,7 +6,7 @@ from starlette import status
 
 from sqlalchemy.orm import Session
 
-import models.models as schemas
+import models.pd_models as schemas
 from utilities.users_operations import create_user as models_create_user
 from database import get_db
 

@@ -11,7 +11,7 @@ from pydantic import BaseModel
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 
-import models.models as schemas
+import models.pd_models as schemas
 from utilities.users_operations import get_user_by_email
 from utilities.token_refresh_operations import get_token_refresh_rate, \
     create_token_count, update_token_count
