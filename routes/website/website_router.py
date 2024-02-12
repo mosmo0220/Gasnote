@@ -2,7 +2,7 @@
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
 
-from models.utilities.OAuth.imports.user_dependency import UserDependency
+from utilities.OAuth.imports.user_dependency import UserDependency
 
 WebsiteRoutes = APIRouter(
     prefix='/app',
