@@ -13,7 +13,8 @@ WebsiteRoutes = APIRouter(
 templates = Jinja2Templates(directory="templates")
 
 @WebsiteRoutes.get("/")
-async def index(request: Request):
+# pylint: disable=W0613
+async def index(request: Request, user: UserDependency):
     """Returns Jinja2 page, that is main page"""
     return templates.TemplateResponse("index.html", {"request": request})
 

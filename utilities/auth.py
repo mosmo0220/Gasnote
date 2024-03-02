@@ -2,9 +2,9 @@
 from typing import Annotated
 from datetime import timedelta, datetime
 
-from fastapi import APIRouter, Depends
-from fastapi.responses import RedirectResponse
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from starlette import status
 
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
@@ -12,8 +12,8 @@ from passlib.context import CryptContext
 from jose import jwt, JWTError
 
 import models.pd_models as schemas
-from utilities.users_operations import get_user_by_email
-from utilities.token_refresh_operations import get_token_refresh_rate, \
+from utilities.operations.users_operations import get_user_by_email
+from utilities.operations.token_refresh_operations import get_token_refresh_rate, \
     create_token_count, update_token_count
 from database import get_db
 from load_env import SECRET_KEY, ALG
@@ -67,10 +67,12 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
         user_id: int = payload.get('id')
 
         if email is None or user_id is None:
-            return RedirectResponse("/app/login", status_code=401)
+            return HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                                detail='Could not validate user.')
         return {'username': email, 'id': user_id}
     except JWTError:
-        return RedirectResponse("/app/login", status_code=401)
+        return HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail='Could not validate user.')
 
 @router.post("/token", response_model=Token)
 async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
@@ -78,7 +80,8 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
     """Function finalize user auth process"""
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
-        return RedirectResponse("/app/login", status_code=401)
+        return HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail='Could not validate user.')
     token = create_access_token(user.email, user.id,
                                timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES), db)
 
@@ -92,7 +95,8 @@ async def refresh_token(user: Annotated[dict, Depends(get_current_user)],
     token_count = get_token_refresh_rate(db, user.get("id"))
     if token_count.refresh_count >= 24 or token_count.refresh_count == 0:
         update_token_count(db, user.get("id"), 0)
-        return RedirectResponse("/app/login", status_code=301)
+        return HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail='Could not validate user.')
 
     counter = token_count.refresh_count
     update_token_count(db, user.get("id"), counter + 1)
