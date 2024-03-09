@@ -1,10 +1,10 @@
 """Pydantic models"""
-from pydantic import BaseModel, Json
+from pydantic import BaseModel
 
 class NotebookBase(BaseModel):
     """Base class model for Notebooks"""
     title: str
-    content: Json
+    content: str
 
 class NotebookCreate(NotebookBase):
     """Create object class model for Notebooks"""

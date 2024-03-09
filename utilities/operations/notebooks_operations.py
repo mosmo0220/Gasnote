@@ -5,9 +5,9 @@ from sqlalchemy.orm import Session
 import models.orm_models as models
 import models.pd_models as schemas
 
-def get_notebooks(db: Session, user_id: int) -> schemas.Notebook:
+def get_notebook(db: Session, notebook_id: int) -> schemas.Notebook:
     """Request to db for all user notebooks"""
-    result = db.query(models.Notebook).filter(models.Notebook.owner_id == user_id).all()
+    result = db.query(models.Notebook).filter(models.Notebook.id == notebook_id).first()
     return_notebook = schemas.Notebook(title=result.title, content=result.content,
                                       id=result.id, owner_id=result.owner_id)
     return return_notebook
@@ -20,7 +20,7 @@ def create_user_notebook(db: Session, item: schemas.NotebookCreate,
     db.commit()
     db.refresh(result)
 
-    return_notebook = schemas.Notebook(title=result.title, content=None,
+    return_notebook = schemas.Notebook(title=result.title, content=item.content,
                                       id=result.id, owner_id=result.owner_id)
     return return_notebook
 

@@ -43,6 +43,7 @@ async def delete_user(user: UserDependency, db: Annotated[Session, Depends(get_d
     return models_delete_user(db, user.get("id"))
 
 @AuthRoutes.get("/logout")
-async def logout():
+# pylint: disable=W0613
+async def logout(user: UserDependency):
     """API route to logout user"""
     return RedirectResponse("/", 303)
