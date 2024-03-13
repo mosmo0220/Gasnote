@@ -1,6 +1,6 @@
 # Todo List for Gasnote Project
 
-Current stage: 3
+Current stage: 4
 
 (Python)
 1. Finish authentication routes

@@ -1,0 +1,29 @@
+{
+    "Metadata": {
+        "Description": "",
+        "CreatedAt": "",
+        "LastTimeModified": "",
+        "Fonts": [],
+        "BlocksSchemas": [
+            {
+                "HTMX": "",
+                "Styles": [],
+                "BlockID": ""
+            }
+        ],
+        "GraphicsPaths": []
+    },
+    "Blocks": {
+        "Base": {
+            "BlockID": "",
+            "Content": "",
+            "External": ""
+        }
+    },
+    "Encryption": {
+        "Type": "",
+        "PK": ""
+    },
+    "UID": "",
+    "BlocksSHA256": "60ab8417d5cd77cb932a5b260329918095f7ba5cd7a835ce868f8ae2d337e990"
+}

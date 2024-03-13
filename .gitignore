@@ -44,3 +44,14 @@ env.bak/
 
 # Dev db
 dev.db
+
+# VSCode
+.vscode
+
+# Engine
+engine/gasnote-engine/target
+engine/gasnote-engine/**/*.rs.bk
+engine/gasnote-engine/Cargo.lock
+engine/gasnote-engine/bin/
+engine/gasnote-engine/pkg/
+engine/gasnote-engine/wasm-pack.log

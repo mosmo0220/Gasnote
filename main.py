@@ -11,6 +11,7 @@ from database import engine
 
 from routes.auth.auth_router import AuthRoutes
 from routes.notebooks.notebooks_router import NotebooksRoutes
+from routes.user.user_router import UserRoutes
 from routes.website.website_router import WebsiteRoutes
 
 Base.metadata.create_all(bind=engine)
@@ -20,6 +21,7 @@ app.include_router(WebsiteRoutes)
 app.include_router(Auth01Router)
 app.include_router(AuthRoutes)
 app.include_router(NotebooksRoutes)
+app.include_router(UserRoutes)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 app.add_middleware(RedirectOn401Middleware)
 

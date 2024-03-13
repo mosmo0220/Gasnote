@@ -2,7 +2,7 @@
 
 ## Engine will be based on rust loaded via WebAssembly
 
-Current stage: 0
+Current stage: 2
 ## Key futures to handle:
 1. Elements base schema:
     >> Metadata
@@ -14,7 +14,6 @@ Current stage: 0
     > Used graphics (name, path, relative_name)
     >> Blocks
     > Block uid
-    > Block styles
     > Block content
     > Block external (for example: pictures, links)
     >> Encryption public key

@@ -3,6 +3,7 @@ from fastapi import Request, Response
 from fastapi.responses import RedirectResponse
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 
+# pylint: disable=R0903
 class RedirectOn401Middleware(BaseHTTPMiddleware):
     """Application middleware to redirect 401 respondes to login page"""
     async def dispatch(
