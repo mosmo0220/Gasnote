@@ -23,3 +23,8 @@ async def index(request: Request, user: UserDependency):
 async def validate_credentials(user: UserDependency):
     """Returns Jinja2 page, that checks auth system"""
     return RedirectResponse("/app", status_code=200)
+
+@WebsiteRoutes.get("/engine-load")
+async def load_engine(request: Request):
+    """Returns Jinja2 page, that loads engine"""
+    return templates.TemplateResponse("engine.html", {"request": request})
