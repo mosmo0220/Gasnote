@@ -1,8 +1,8 @@
 import init from "./gasnote_engine.js";
 
 async function main() {
-    const { greet } = await init();
-    greet();
+    const { initialize } = await init();
+    initialize();
 }
 
-main();
+document.addEventListener('DOMContentLoaded', main);

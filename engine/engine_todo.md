@@ -2,28 +2,12 @@
 
 ## Engine will be based on rust loaded via WebAssembly
 
-Current stage: 2
+Current stage: 3
 ## Key futures to handle:
-1. Elements base schema:
-    >> Metadata
-    > Description
-    > Created at
-    > Last time modified
-    > Used fonts
-    > Used blocks (for example, table) (block htmx base)
-    > Used graphics (name, path, relative_name)
-    >> Blocks
-    > Block uid
-    > Block content
-    > Block external (for example: pictures, links)
-    >> Encryption public key
-    >> Notebook uid (not from DB)
-    >> Content SHA256 (for validation)
-2. Metadata engine
-3. Blocks engine
-4. Encryption engine
-5. SHA256 validation engine
-6. Packing and Unpacking engine
-7. WASM integration
-8. Creation of the first blocks
-9. Integrating with the website
+1. Creating env for wasm and rust
+2. Create schema mechanic
+3. Create basic notebook mechanic
+4. Packing and Unpacking mechanic
+5. WASM integration
+6. Integrating with the website
+7. Next Steps
